@@ -1,10 +1,10 @@
 # Likes-microservice
-
+<br>
 # to Run the project
-
-clone the repo
-cd ./Likes-microservice
-docker build -t my-node-app .
-docker-compose up --build
-call:
-get - localhost:13000/setup
+<br><br>
+clone the repo<br>
+cd ./Likes-microservice<br>
+docker build -t my-node-app . <br>
+docker-compose up --build<br>
+callthe endpoint:<br>
+get - localhost:13000/setup<br>
