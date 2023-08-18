@@ -1,13 +1,14 @@
 const express = require("express");
-const pool = require("./db");
+
+
 const port = 3000;
 const app = express();
 app.use(express.json());
 process.on("uncaughtException", function (err) {
   console.log(err);
 });
-const redisClient = require("./redisConfig");
-
+const routes = require('./routes');
+app.use('/', routes);
 app.get("/", async (req, res) => {
   try {
     const data = await pool.query("SELECT * FROM likes");
@@ -82,37 +83,9 @@ app.get("/hasliked", async (req, res) => {
   }
 });
 app.get("/total_likes", async (req, res) => {
-  const content_id = req.query.content_id;
 
-  if (!content_id) {
-    return res
-      .status(400)
-      .json({ error: "contentId is required as a query parameter" });
-  }
-
-  try {
-    const totalLikes = await redisClient.get(`total_likes_${content_id}`);
-    if (totalLikes !== null) {
-      console.log("hi from redis");
-      return res.json({ totalLikes: parseInt(totalLikes) });
-    } else {
-      const query = `
-        SELECT COUNT(*) as like_count
-        FROM likes
-        WHERE contentId = $1;
-      `;
-      const result = await pool.query(query, [content_id]);
-      const totalLikes = parseInt(result.rows[0].like_count);
-      await redisClient.set(`total_likes_${content_id}`, totalLikes);
-    }
-
-    res.json({ Likes: totalLikes });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "An error occurred" });
-  }
 });
-
+//used for dev pourpose
 app.get("/setup", async (req, res) => {
   try {
     await pool.query(
