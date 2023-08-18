@@ -1,15 +1,18 @@
 # Likes-microservice
 <br>
-#to Run the project
+To Run the project
 <br><br>
-clone the repo<br>
-cd ./Likes-microservice<br>
-docker build -t my-node-app . <br>
-docker-compose up --build<br>
+
+step 1 clone the repo<br>
+step 2 cd ./Likes-microservice<br>
+step 3 docker build -t my-node-app . <br>
+step 4 docker-compose up --build<br>
+
 <br>
 the project uses postgre to store the like event<br>
 and uses redis cache to store like count of a certain post<br>
 
+![image](https://github.com/madhav-poojari/Likes-microservice/assets/88374622/a3013c67-77a4-4c24-938e-b5fa5a5d4837)
 
 for ease of use added a little dummy data<br><br>
 
